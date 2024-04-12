@@ -16,12 +16,27 @@ fetch(breedUrl)
 .then(resp=>resp.json())
 .then(data=>{
     const dogNames = Object.keys(data.message)
-    console.log(dogNames)
     dogNames.forEach(element => {
         let name = document.createElement('li')
         name.innerHTML = element
         document.getElementById('dog-breeds').appendChild(name)
+        name.addEventListener('click', e=>{
+            e.target.setAttribute('style', 'color: #fcf')
+        })
+        
     });
+
+let dropDown = document.getElementById('breed-dropdown')
+dropDown.addEventListener('change',e=>{
+      let newArray = []
+    newArray = dogNames.filter(name=>name[0]===e.target.value)
+    document.getElementById('dog-breeds').innerHTML = ''
+    newArray.forEach(dogName => {
+        let li = document.createElement('li')
+        li.innerHTML = `${dogName}`
+        document.getElementById('dog-breeds').appendChild(li)    
+     });
+})
 }
 )
 })
